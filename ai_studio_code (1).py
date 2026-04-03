@@ -47,13 +47,17 @@ def subir_pdf_a_drive(pdf_content, filename, folder_id):
 def crear_pdf_bytes(datos, items):
     pdf = FPDF()
     pdf.add_page()
+    
+    # Ejemplo rápido de contenido para probar
     pdf.set_font("Arial", 'B', 16)
-    pdf.cell(0, 10, f"COTIZACIÓN N° {datos['n_cot']}", 0, 1, 'R')
+    pdf.cell(0, 10, f"COTIZACION N {datos['n_cot']}", 0, 1, 'C')
     pdf.set_font("Arial", '', 12)
+    pdf.ln(10)
     pdf.cell(0, 10, f"Cliente: {datos['cliente']}", 0, 1)
     pdf.cell(0, 10, f"Comuna: {datos['comuna']}", 0, 1)
-    # ... (Aquí iría el resto del diseño de la tabla que hicimos antes)
-    return pdf.output(dest='S').encode('latin-1')
+    
+    # IMPORTANTE: En fpdf2 no hace falta encode()
+    return pdf.output()
 
 # --- INTERFAZ STREAMLIT ---
 st.title("🚀 Sistema de Cotizaciones Cloud (Drive Sync)")
